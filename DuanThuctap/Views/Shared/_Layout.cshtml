@@ -1,0 +1,85 @@
+﻿<!--Begin: Shadow-->
+<div class=" container-fluid fixed-top shadow-sm bg-white rounded">
+    <header>
+        <div class="row pt-2 pb-2 h-40">
+            <div class="col-2 text-center">
+                <img src="/img/Logo.svg" alt="Ảnh logo.svg">
+            </div>
+            <div class="col-8 my-auto ">
+                <form class="form-inline ">
+                    <input type="text" class="form-control mr-sm-2" placeholder="Search" style="width: 350px;">
+                </form>
+            </div>
+
+            <div class="col-2 d-flex align-items-center">
+                <i class="fa-regular fa-bell fa-lg p-3 icon"></i>
+                <i class="fa-regular fa-moon fa-lg p-3 icon"></i>
+                <li class="nav-item dropdown list-unstyled fa-lg">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;"><i class="fas fa-user fa-fw"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item p-3" href="#!">Settings</a></li>
+                        <li><a class="dropdown-item p-3" href="#!">Activity Log</a></li>
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item p-3" href="#!">Logout</a></li>
+                    </ul>
+                </li>
+                <div>
+                </div>
+    </header>
+</div>
+<!--End: Shadow-->
+<!--Begin: Side Bar-->
+<div class="sidebar ">
+    <div class="container-fluid ">
+        <div class="row p-2">
+            <div class="col-2 shadow-sm bg-white border border-2" style="height: 100vh;border-radius: 10px;margin-top: 64px;">
+                <ul class="list-group border-0 mt-1 mb-1 ">
+                    <a href="#" class="">
+                    <li class="list-group-item p-2">
+                        <div class="row ">
+                            <div class="col-2">
+                                <i class="fa-solid fa-chart-pie fa-lg "></i>
+                            </div>
+                            <div class="col-10">
+                                Dashboard
+                            </div>
+                        </div>
+                    </li>
+                    </a>
+
+                    <li class="list-group-item p-2 ">
+                        <a class="nav-link collapsed p-0" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                            <div class="sb-nav-link-icon">
+                                <i class="fas fa-columns pl-1 pr-2"></i>
+                                Layouts
+                                <i class="fas fa-angle-down"></i>
+                            </div>
+                        </a>
+                        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="#">Static Navigation</a>
+                                <a class="nav-link" href="#">Light Sidenav</a>
+                            </nav>
+                        </div>
+                    </li>
+
+                    <a href="#" class="">
+                    <li class="list-group-item p-2">
+                        <div class="row">
+                            <div class="col-2">
+                                <i class="fa-solid fa-right-to-bracket"></i>
+                            </div>
+                            <div class="col-10">
+                                Đăng xuất
+                            </div>
+                        </div>
+                    </li>
+                    </a>
+                </ul>
+            </div>
+            @RenderBody()
+
+        </div>
+    </div>
+</div>
+<!--End: Side Bar-->

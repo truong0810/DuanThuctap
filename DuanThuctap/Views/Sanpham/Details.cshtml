@@ -1,0 +1,64 @@
+﻿@model DuanThuctap.Models.SANPHAM
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/Header_Menu.cshtml";
+}
+<style>
+    .fs-15 {
+        font-size: 15pt !important;
+        font-weight: 500;
+    }
+</style>
+<!--Side bar bên phải-->
+<div class="col-9 p-2 shadow-sm bg-white border border-2 ml-1" style="border-radius: 10px;margin-top: 64px;">
+    <main>
+        <div class="container-fluid px-4">
+            <h3>Thông tin sản phẩm thứ: @Model.MASP </h3>
+            <hr />
+            <div class="fs-15">
+                @Html.ActionLink("Back to List","Thongtinssanpham")
+            </div>
+            <div class="row mt-4">
+                <div class="col-6 text-center">
+                    <div class="col-6">
+                        @Html.LabelFor(m => m.HINHLON)
+                    </div>
+                    <div class="col-6">
+                        <img src="@Url.Content("~/Hinhsanpham/anhlon/"+Model.HINHLON)" alt="Hình ảnh " width="100px" />
+                    </div>
+                </div>
+                <div class="col-6 text-center">
+                    <div class="col-6 ">
+                        @Html.LabelFor(m => m.HINHNHO)
+                    </div>
+                    <div class="col-6">
+                        <img src="@Url.Content("~/Hinhsanpham/anhnho/"+Model.HINHNHO)" alt="Hình ảnh " width="100px" />
+                    </div>
+                </div>
+
+                <div class="col-12 mt-4">
+                    <h5 class="d-inline">Tên sản phẩm : </h5>@Model.TENSP
+                </div>
+                <div class="col-12 mt-4">
+                    <h5 class="d-inline">Loại sản phẩm: </h5>@Model.LOAISANPHAM.TENLOAISP
+                </div>
+                <div class="col-12 mt-4">
+                    <h5 class="d-inline">Thương hiệu : </h5>@Model.THUONGHIEU.TENTH
+                </div>
+                <div class="col-12 mt-4">
+                    <h5 class="d-inline">Khuyến mãi : </h5>@Model.KHUYENMAI.TENKM
+                </div>
+                <div class="col-12 mt-4">
+                    <h5 class="d-inline">Số lượng : </h5>@Model.SOLUONG
+                </div>
+                <div class="col-12 mt-4">
+                    <h5 class="d-inline">Đơn giá : </h5>@Model.DONGIA
+                </div>
+                <div class="col-12 mt-4">
+                    <h5 class="d-inline">Mô tả : </h5>@Model.MOTA
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+<!--Side bar bên phải-->

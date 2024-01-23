@@ -1,0 +1,64 @@
+﻿@model DuanThuctap.Models.KHUYENMAI
+@{
+    ViewBag.Title = "Create Promotion";
+    Layout = "~/Views/Shared/Header_Menu.cshtml";
+}
+<style>
+    .fs-15 {
+        font-size: 14pt !important;
+        font-weight: 500;
+    }
+</style>
+<!--Side bar bên phải-->
+<div class="col-9 p-2 shadow-sm bg-white border border-2 ml-1" style="border-radius: 10px;margin-top: 64px;">
+    <main>
+        <div class="container-fluid px-4">
+            <h3>Thêm khuyến mãi</h3>
+            <div>
+                <p class="text-center text-danger" style="font-size:16pt;font-weight:600;">Thông tin khuyến mãi</p>
+            </div>
+            <form method="post">
+                @Html.AntiForgeryToken()
+                <div class="row">
+                    <div class="col-12 mt-4">
+                        <h6>Mã khuyến mãi</h6>
+                    </div>
+                    <div class="col-12">
+                        <input type="number" class="form-control" name="MAKM" placeholder="Nhập mã khuyến mãi ....." />
+                    </div>
+                    <div class="col-12 mt-1">
+                        @Html.ValidationMessageFor(m => m.MAKM, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-12 mt-4">
+                        <h6>Tên khuyến mãi</h6>
+                    </div>
+                    <div class="col-12">
+                        <input type="text" class="form-control" name="TENKM" placeholder="Nhập tên khuyến mãi....." />
+                    </div>
+                    <div class="col-12 mt-1">
+                        @Html.ValidationMessageFor(model => model.TENKM, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-12 mt-4">
+                        <h6>Phần trăm</h6>
+                    </div>
+                    <div class="col-12">
+                        <input type="number" class="form-control" name="PHANTRAM" placeholder="Nhập phần trăm ....." />
+                    </div>
+                    <div class="col-12 mt-1">
+                        @Html.ValidationMessageFor(m => m.PHANTRAM, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="col-12 mt-2">
+                        <p class="text-danger fs-15">@TempData["erorr"]</p>
+                    </div>
+                    <div class="col-12">
+                        <a href="@Url.Action("Createpromotion", "Sanpham")">
+                            <button type="submit" class="btn btn-primary mt-2 px-4 " style="font-size:15pt;font-weight:600;">Thêm khuyến mãi</button>
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+</div>
+<!--Side bar bên phải-->

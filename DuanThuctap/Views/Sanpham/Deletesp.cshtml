@@ -1,0 +1,37 @@
+﻿@model DuanThuctap.Models.SANPHAM
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/Header_Menu.cshtml";
+}
+
+
+<!--Side bar bên phải-->
+<div class="col-9 p-2 shadow-sm bg-white border border-2 ml-1" style="border-radius: 10px;margin-top: 64px;">
+    <main>
+        <div class="container-fluid px-4">
+            <h3>Xóa loại sản phẩm</h3>
+            <hr />
+            <div>
+                <dl class="dl-horizontal">
+                    <dt>
+                        Bạn thưc sự muốn xóa loại sản phẩm :  @Html.DisplayFor(m => m.MASP)
+                    </dt>
+                </dl>
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-actions no-color">
+                        <input type="submit" value="Delete" class="btn btn-primary" />
+                        <a href="@Url.Action("Thongtinssanpham","Sanpham")">
+                            <button type="button" class="btn btn-primary">Quay lại</button>
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+
+    </main>
+</div>
+<!--Side bar bên phải-->

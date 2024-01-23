@@ -1,0 +1,57 @@
+﻿@model DuanThuctap.Models.LOAITK
+@{
+    ViewBag.Title = "Tìm kiếm loại tài khoản ";
+    Layout = "~/Views/Shared/Header_Menu.cshtml";
+}
+<style>
+    .fs-15 {
+        font-size: 14pt !important;
+        font-weight: 500;
+    }
+</style>
+<!--Side bar bên phải-->
+<div class="col-9 p-2 shadow-sm bg-white border border-2 ml-1" style="border-radius: 10px;margin-top: 64px;">
+    <main>
+        <div class="container-fluid px-4">
+            <h3>Thêm loại tài khoản</h3>
+            <div>
+                <p class="text-center text-danger" style="font-size:16pt;font-weight:600;">Thông tin loại tài khoản</p>
+            </div>
+            <form method="post">
+                @Html.AntiForgeryToken()
+                <div class="row">
+                    <div class="col-12 mt-4">
+                        <h6>Mã loại tài khoản</h6>
+                    </div>
+                    <div class="col-12">
+                        <input type="text" class="form-control" name="MALOAITK" placeholder="Nhập mã loại tài khoản ....." />
+                    </div>
+                    <div class="col-12 mt-1">
+                        @Html.ValidationMessageFor(m=>m.MALOAITK, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-12 mt-4">
+                        <h6>Tên loại sản phẩm</h6>
+                    </div>
+                    <div class="col-12">
+                        <input type="text" class="form-control" name="TENLOAITK" placeholder="Nhập tên loại tài khoản ....." />
+                    </div>
+                    <div class="col-12 mt-1">
+                        @Html.ValidationMessageFor(model => model.TENLOAITK, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-12 mt-2">
+                        <p class="text-danger fs-15">@TempData["erorr"]</p>
+                    </div>
+                    <div class="col-12">
+                        <a href="@Url.Action("Createloaitk", "Khachhang")">
+                            <button type="submit" class="btn btn-primary mt-2 px-4 " style="font-size:15pt;font-weight:600;">Thêm loại tài khoản</button>
+                        </a>
+                        <a href="@Url.Action("Loaitaikhoan", "Khachhang")">
+                            <button type="submit" class="btn btn-primary mt-2 px-4 " style="font-size:15pt;font-weight:600;">Quay lại</button>
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+</div>
+<!--Side bar bên phải-->

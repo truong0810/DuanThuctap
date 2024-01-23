@@ -1,0 +1,71 @@
+﻿@model IEnumerable<DuanThuctap.Models.KHACHHANG>
+
+@{
+    ViewBag.Title = "Tìm kiếm thông tin khách hàng";
+    Layout = "~/Views/Shared/Header_Menu.cshtml";
+}
+<style>
+    .fw-title {
+        font-size: 14pt;
+        font-weight: 500;
+    }
+
+    .color-delete {
+        color: aliceblue;
+    }
+</style>
+<!--Side bar bên phải-->
+<div class="col-9 p-2 shadow-sm bg-white border border-2 ml-1" style="border-radius: 10px;margin-top: 64px;">
+    <main>
+        <div class="container-fluid px-4">
+            <h3 class="mb-3">Danh sách tìm kiếm thông tin khách hàng</h3>
+                <div class="col-6 text-left mb-3">
+                    <a href="/Chamsockhachhang/Khachhang">
+                        <button type="button" class="btn btn-primary fw-title">Back to List</button>
+                    </a>
+                </div>
+            </div>
+            <div class="table">
+                <table class="table table-striped table-hover text-center">
+                    <tr class="fw-title">
+                        <td>Mã khách hàng</td>
+                        <td>Tên khách hàng</td>
+                        <td>Tên đăng nhập</td>
+                        <td>Giới tính</td>
+                        <td>Số điện thoại</td>
+                        <td>Email</td>
+                        <td>Địa chỉ</td>
+                    </tr>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(m => item.MAKH)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.TENKH)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.TAIKHOAN.TENDN)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.GIOITINH)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.SDT)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.TAIKHOAN.EMAIL)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.DIACHI)
+                            </td>
+
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </main>
+</div>
+<!--Side bar bên phải-->

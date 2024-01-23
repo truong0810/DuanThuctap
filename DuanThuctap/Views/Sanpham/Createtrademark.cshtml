@@ -1,0 +1,63 @@
+﻿@model DuanThuctap.Models.THUONGHIEU
+@{
+    ViewBag.Title = "Create Trademark";
+    Layout = "~/Views/Shared/Header_Menu.cshtml";
+}
+<style>
+    .fs-15 {
+        font-size: 14pt !important;
+        font-weight: 500;
+    }
+</style>
+<!--Side bar bên phải-->
+<div class="col-9 p-2 shadow-sm bg-white border border-2 ml-1" style="border-radius: 10px;margin-top: 64px;">
+    <main>
+        <div class="container-fluid px-4">
+            <h3>Thêm thương hiệu</h3>
+            <div>
+                <p class="text-center text-danger" style="font-size:16pt;font-weight:600;">Thông tin loại sản phẩm</p>
+            </div>
+            <form method="post" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
+                <div class="row">
+
+                    <div class="col-12 mt-4">
+                        <h6>Tên thương hiệu</h6>
+                    </div>
+                    <div class="col-12">
+                        <input type="text" class="form-control" name="TENTH" placeholder="Nhập tên thương hiệu ....." />
+                    </div>
+                    <div class="col-12 mt-1">
+                        @Html.ValidationMessageFor(model => model.TENTH, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="col-12 mt-4">
+                        <h6>Hình thương hiệu</h6>
+                    </div>
+                    <div class="col-12">
+                        <input type="file" class="form-control" name="HINHTH" />
+                    </div>
+                    <div class="col-12 mt-1">
+                        @Html.ValidationMessageFor(model => model.HINHTH, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="col-12 mt-2">
+                        <p class="text-danger fs-15">
+                        @TempData["erorr"]
+                        @TempData["erorr1"]
+                    </p>
+                </div>
+                <div class="col-12">
+                    <a href="@Url.Action("Createtrademark", "Sanpham")">
+                        <button type="submit" class="btn btn-primary mt-2 px-4 " style="font-size:15pt;font-weight:600;">Thêm thương hiệu</button>
+                    </a>
+                    <a href="@Url.Action("Thuonghieu", "Sanpham")">
+                        <button type="button" class="btn btn-primary mt-2 px-4 " style="font-size:15pt;font-weight:600;">Back to List</button>
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+</main>
+</div>
+<!--Side bar bên phải-->

@@ -1,0 +1,84 @@
+﻿@model PagedList.IPagedList<DuanThuctap.Models.LOAITK>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Loại tài khoản";
+    Layout = "~/Views/Shared/Header_Menu.cshtml";
+}
+<style>
+    .fw-title {
+        font-size: 14pt;
+        font-weight: 500;
+    }
+
+    .color-delete {
+        color: aliceblue;
+    }
+</style>
+<!--Side bar bên phải-->
+<div class="col-9 p-2 shadow-sm bg-white border border-2 ml-1" style="border-radius: 10px;margin-top: 64px;">
+    <main>
+        <div class="container-fluid px-4">
+            <h3 class="mb-3">Loại tài khoản</h3>
+
+            <div class="row mb-5">
+                <div class="col-6 my-auto ">
+                    @using (Html.BeginForm("Searchloaitk", "Khachhang", FormMethod.Get, new { @class = "form-inline" }))
+                    {
+                        <input type="text" name="searchloaitk" class="form-control mr-sm-2" placeholder="Search account type" style="width: 350px;" id="searchInput">
+                        <!-- Đoạn mã jQuery để xử lý sự kiện Enter -->
+                        <script src="~/Scripts/bootstrap.js"></script>
+                    }
+
+                </div>
+                <div class="col-6 text-right">
+                    <a href="/Khachhang/Createloaitk">
+                        <button type="button" class="btn btn-primary fw-title"><i class="fa-solid fa-plus" "></i> Create</button>
+                    </a>
+                </div>
+            </div>
+            <div class="table">
+                <table class="table table-striped table-hover text-center">
+                    <tr class="fw-title">
+                        <td>Mã loại tài khoản</td>
+                        <td>Tên loại tài khoản</td>
+                        <td>Thao tác</td>
+                    </tr>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(m => item.MALOAITK)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.TENLOAITK)
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-primary">
+                                    <a href="@Url.Action("Editloaitk", new { id = item.MALOAITK.Trim() })" class="text-decoration-none color-delete">
+                                        <i class="fa-solid fa-pen-to-square"></i> Edit
+                                    </a>
+                                </button>
+                                <button type="button" class="btn btn-danger">
+                                    <a href="@Url.Action("Deleteloaitk", new { id = item.MALOAITK.Trim() })" class="text-decoration-none color-delete">
+                                        <i class="fa-solid fa-trash-can"></i> Delete
+                                    </a>
+                                </button>
+
+                            </td>
+                        </tr>
+                    }
+                </table>
+                <hr />
+                <!-- Thêm phân trang vào -->
+                <div class="text-right fw-title text-primary">
+                    Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+                </div>
+                @Html.PagedListPager(Model, page => Url.Action("Loaitaikhoan", new { page }))
+                <!-- Kết thúc -->
+
+            </div>
+        </div>
+    </main>
+</div>
+<!--Side bar bên phải-->

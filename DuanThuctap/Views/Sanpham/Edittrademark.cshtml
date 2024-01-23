@@ -1,0 +1,57 @@
+﻿@model DuanThuctap.Models.THUONGHIEU
+
+@{
+    ViewBag.Title = "Sửa thương hiệu";
+    Layout = "~/Views/Shared/Header_Menu.cshtml";
+}
+
+<!--Side bar bên phải-->
+<div class="col-9 p-2 shadow-sm bg-white border border-2 ml-1" style="border-radius: 10px;margin-top: 64px;">
+    <main>
+        <div class="container-fluid px-4">
+            @using (Html.BeginForm("Edittrademark", "Sanpham", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    <h4>Sửa thông thương hiệu</h4>
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(m => m.MATH)
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.TENTH, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.TENTH, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.TENTH, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.HINHTH, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <input type="file" class="form-control mb-1" name="HINHTH" />
+                            <img src="@Url.Content("~/Hinhsanpham/thuonghieu/"+Model.HINHTH)" alt="Image Trademark " width="100px" />  (Ảnh nhỏ hiện tại)
+                            @Html.Hidden("oldimage", @Model.HINHTH)
+                            @Html.ValidationMessageFor(model => model.HINHTH, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <p class="text-danger">@ViewBag.Message</p>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Save" class="btn btn-primary" />
+                            <a href="@Url.Action("Thuonghieu","Sanpham")">
+                                <button type="button" class="btn btn-primary">Quay lại</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </main>
+</div>
+<!--Side bar bên phải-->

@@ -1,0 +1,56 @@
+﻿@model IEnumerable<DuanThuctap.Models.THUONGHIEU>
+
+@{
+    ViewBag.Title = "Tìm kiếm hiệu";
+    Layout = "~/Views/Shared/Header_Menu.cshtml";
+}
+<style>
+    .fw-title {
+        font-size: 14pt;
+        font-weight: 500;
+    }
+
+    .color-delete {
+        color: aliceblue;
+    }
+</style>
+<!--Side bar bên phải-->
+<div class="col-9 p-2 shadow-sm bg-white border border-2 ml-1" style="border-radius: 10px;margin-top: 64px;">
+    <main>
+        <div class="container-fluid px-4">
+            <h3 class="mb-3">Kết quả tìm kiếm</h3>
+            <hr />
+        </div>
+        <div>
+            <a href="@Url.Action("Thuonghieu","Sanpham")">
+                <button type="button" class="btn btn-primary mb3">Back to List</button>
+            </a>
+        </div>
+        <div class="table">
+            <table class="table table-striped table-hover text-center">
+                <tr class="fw-title">
+                    <td>Mã thương hiệu</td>
+                    <td>Tên thương hiệu</td>
+                    <td>Hình thương hiệu</td>
+                    <td>Thao tác</td>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(m => item.MATH)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.TENTH)
+                        </td>
+                        <td>
+                            <img src="@Url.Content("~/Hinhsanpham/thuonghieu/"+item.HINHTH)" alt="Image Trademark" style="width:100px;height:120px;" />
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+</div>
+    </main>
+</div>
+<!--Side bar bên phải-->

@@ -1,0 +1,113 @@
+﻿@model PagedList.IPagedList<DuanThuctap.Models.SANPHAM>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+@{
+    ViewBag.Title = "Thông tin sản phẩm";
+    Layout = "~/Views/Shared/Header_Menu.cshtml";
+}
+@helper Truncate(string input, int lenght)
+{
+    if (input.Length < lenght)
+    {
+        @input
+    }
+    else
+    {
+        @input.Substring(0, lenght)<text>...</text>
+    }
+}
+<style>
+    .fw-title {
+        font-weight: 600;
+    }
+
+    .color-delete {
+        color: aliceblue;
+    }
+
+    .size-img {
+        width: 100px;
+        height: 130px;
+    }
+</style>
+<!--Side bar bên phải-->
+<div class="col-9 p-2 shadow-sm bg-white border border-2 ml-1" style="border-radius: 10px;margin-top: 64px;">
+    <main>
+        <div class="container-fluid px-4">
+            <h3 class="mb-3">Danh sách tìm kiếm</h3>
+
+            <div class="row mb-5">
+                <div class="col-6 my-auto ">
+                   
+                </div>
+                <div class="col-6 text-right">
+                    <a href=" @Url.Action("Thongtinssanpham", "Sanpham")">
+                        <button type="button" class="btn btn-primary fw-title"> Back to List</button>
+                    </a>
+                </div>
+            </div>
+            <div class="table">
+                <table class="table table-striped table-hover">
+                    <tr class="fw-title">
+                        <td>Mã sản phẩm</td>
+                        <td>Tên sản phẩm</td>
+                        <td>Loại sản phẩm</td>
+                        <td>Thương hiệu</td>
+                        <td>Khuyến mãi</td>
+                        <td>Hình nhỏ</td>
+                        <td>Hình lớn</td>
+                        <td>Số lượng</td>
+                        <td>Đơn giá</td>
+                        <td>Mô tả</td>
+                    </tr>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(m => item.MASP)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.TENSP)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.LOAISANPHAM.TENLOAISP)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.THUONGHIEU.TENTH)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.KHUYENMAI.TENKM)
+                            </td>
+                            <td>
+                                <img src="@Url.Content("~/Hinhsanpham/anhnho/"+item.HINHNHO)" alt="Hình ảnh " class="size-img" />
+                            </td>
+                            <td>
+                                <img src="@Url.Content("~/Hinhsanpham/anhlon/"+item.HINHLON)" alt="Hình ảnh" class="size-img" />
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(m => item.SOLUONG)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.DONGIA)
+                            </td>
+                            <td>
+                                @Truncate(item.MOTA, 50)
+                            </td>
+                            
+                        </tr>
+                    }
+                </table>
+                <hr />
+                <!-- Thêm phân trang vào -->
+                <div class="text-right fw-title text-primary">
+                    Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+                </div>
+                @Html.PagedListPager(Model, page => Url.Action("Thongtinssanpham", new { page, size = ViewBag.currentSize }))
+                <!-- Kết thúc -->
+
+            </div>
+        </div>
+    </main>
+</div>
+<!--Side bar bên phải-->

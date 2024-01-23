@@ -1,0 +1,102 @@
+﻿@model PagedList.IPagedList<DuanThuctap.Models.TAIKHOAN>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Tài khoản";
+    Layout = "~/Views/Shared/Header_Menu.cshtml";
+}
+<style>
+    .fw-title {
+        font-size: 14pt;
+        font-weight: 500;
+    }
+
+    .color-delete {
+        color: aliceblue;
+    }
+</style>
+<!--Side bar bên phải-->
+<div class="col-9 p-2 shadow-sm bg-white border border-2 ml-1" style="border-radius: 10px;margin-top: 64px;">
+    <main>
+        <div class="container-fluid px-4">
+            <h3 class="mb-3">Tài khoản</h3>
+            <hr />
+            <div class="row mb-5">
+                <div class="col-6 my-auto ">
+                    @using(Html.BeginForm("Searchaccount", "Khachhang", FormMethod.Get, new { @class = "form-inline" }))
+                    {
+                        <input type="text" name="searchaccount" class="form-control mr-sm-2" placeholder="Search account" style="width: 350px;" id="searchInput">
+                        <!-- Đoạn mã jQuery để xử lý sự kiện Enter -->
+                        <script src="~/Scripts/bootstrap.js"></script>
+                    }
+                </div>
+                <div class="col-6 text-right">
+                    <a href="/Khachhang/Createaccount">
+                        <button type="button" class="btn btn-primary fw-title"><i class="fa-solid fa-plus" "></i> Create</button>
+                    </a>
+                </div>
+            </div>
+            <div class="table">
+                <table class="table table-striped table-hover text-center">
+                    <tr class="fw-title">
+                        <td>Mã  tài khoản</td>
+                        <td>Tên người dùng</td>
+                        <td>Loại tài khoản</td>
+                        <td>Ngày đăng ký</td>
+                        <td>Mật khẩu</td>
+                        <td>Trạng thái</td>
+                        <td>Email</td>
+                        <td>Thao tác</td>
+                    </tr>
+                    @foreach (var item in Model)
+                    {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(m => item.MATK)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.TENDN)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.LOAITK.TENLOAITK)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.NGAYDANGKY)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.MATKHAU)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.TRANGTHAI)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.EMAIL)
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-primary">
+                            <a href="@Url.Action("Editaccount", new { id = item.MATK })" class="text-decoration-none color-delete">
+                                <i class="fa-solid fa-pen-to-square"></i> Edit
+                            </a>
+                        </button>
+                        <button type="button" class="btn btn-danger">
+                            <a href="@Url.Action("Deleteaccount", new { id = item.MATK})" class="text-decoration-none color-delete">
+                                <i class="fa-solid fa-trash-can"></i> Delete
+                            </a>
+                        </button>
+                    </td>
+                </tr>
+                    }
+                </table>
+                <hr />
+                <!-- Thêm phân trang vào -->
+                <div class="text-right fw-title text-primary">
+                    Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+                </div>
+                @Html.PagedListPager(Model, page =>@Url.Action("Taikhoan", new { page }))
+                <!-- Kết thúc -->
+
+            </div>
+        </div>
+    </main>
+</div>
+<!--Side bar bên phải-->

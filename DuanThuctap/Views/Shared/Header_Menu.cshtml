@@ -1,0 +1,200 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="~/Content/PagedList.css" rel="stylesheet" />
+    <script src="~/ckeditor5-build-classic/ckeditor.js"></script>
+    <title>@ViewBag.Title</title>
+</head>
+<style>
+    .icon:hover {
+        border-radius: 5px;
+        background-color: rgb(244, 240, 240);
+    }
+
+    .list-items a {
+        font-size: 14pt;
+        text-decoration: none;
+        color: black;
+        font-weight: 550;
+    }
+
+    .sidebar-dm:hover {
+        background-color: rgb(245, 243, 240);
+    }
+
+    .list-group-item, .list-group a {
+        border: none;
+        text-decoration: none;
+        color: black;
+        font-size: 15pt;
+        font-weight: 500;
+        margin-top: 4px;
+    }
+
+        .list-group-item:hover, .list-group-item a:hover {
+            color: rgb(19, 195, 42);
+            border-radius: 10px;
+            background-color: rgba(243, 235, 235, 0.5);
+        }
+</style>
+<body>
+    <div>
+        <!--Begin: Shadow-->
+        <div class=" container-fluid fixed-top shadow-sm bg-white rounded">
+            <header>
+                <div class="row pt-2 pb-2 h-40">
+                    <div class="col-2 text-center">
+                        <img src="/img/Logo.svg" alt="Ảnh logo.svg">
+                    </div>
+                    <div class="col-8 my-auto ">
+                        <form class="form-inline ">
+                            <input type="text" class="form-control mr-sm-2" placeholder="Search" style="width: 350px;">
+                        </form>
+                    </div>
+
+                    <div class="col-2 d-flex align-items-center">
+                        <i class="fa-regular fa-bell fa-lg p-3 icon"></i>
+                        <i class="fa-regular fa-moon fa-lg p-3 icon"></i>
+                        <li class="nav-item dropdown list-unstyled fa-lg">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
+                                <i class="fas fa-user fa-fw"></i>
+                                <!-- Thêm a còng ở dấu 2 chấm..{
+         var user = HttpContext.Current.Session["nameuser"].ToString();
+         <span> ..user</span>
+     }
+        -->
+
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item p-3" href="#!">Settings</a></li>
+                                <li><a class="dropdown-item p-3" href="#!">Activity Log</a></li>
+                                <li><hr class="dropdown-divider" /></li>
+                                <li><a class="dropdown-item p-3" href="@Url.Action("Login","Login")">Logout</a></li>
+                            </ul>
+                        </li>
+                        <div>
+                        </div>
+            </header>
+        </div>
+        <!--End: Shadow-->
+        <!--Begin: Side Bar-->
+        <div class="sidebar ">
+            <div class="container-fluid ">
+                <div class="row p-2">
+                    <div class="col-2 shadow-sm bg-white border border-2" style="min-height: 89vh;border-radius: 10px;margin-top: 64px;">
+                        <ul class="list-group border-0 mt-1 mb-1 ">
+                            <a href="@Url.Action("Index","Dashboard")" class="">
+                            <li class="list-group-item p-2">
+                                <div class="row ">
+                                    <div class="col-2">
+                                        <i class="fa-solid fa-chart-pie fa-lg "></i>
+                                    </div>
+                                    <div class="col-10">
+                                        Dashboard
+                                    </div>
+                                </div>
+                            </li>
+                            </a>
+
+                            <li class="list-group-item p-2 ">
+                                <a class="nav-link collapsed p-0" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts1" aria-expanded="false" aria-controls="collapseLayouts">
+                                    <div class="sb-nav-link-icon">
+                                        <i class="fa-solid fa-clock"></i>
+                                        Sản phẩm
+                                        <i class="fas fa-angle-down"></i>
+                                    </div>
+                                </a>
+                                <div class="collapse" id="collapseLayouts1" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                    <nav class="sb-sidenav-menu-nested nav">
+                                        <a class="nav-link" href="@Url.Action("Loaisanpham","Sanpham")">Loại sản phẩm</a>
+                                        <a class="nav-link" href="/Sanpham/Thuonghieu">Thương hiệu</a>
+                                        <a class="nav-link" href="@Url.Action("Khuyenmai","Sanpham")">Khuyến mãi</a>
+                                        <a class="nav-link" href="@Url.Action("Thongtinssanpham","Sanpham")">Thông tin sản phẩm</a>
+                                        <a class="nav-link" href="@Url.Action("Thongkesanpham","Sanpham")">Thống kê sản phẩm</a>
+                                    </nav>
+                                </div>
+                            </li>
+
+                            <li class="list-group-item p-2 ">
+                                <a class="nav-link collapsed p-0" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts2" aria-expanded="false" aria-controls="collapseLayouts">
+                                    <div class="sb-nav-link-icon">
+                                        <i class="fa-solid fa-cart-shopping"></i>
+                                        Bán hàng
+                                        <i class="fas fa-angle-down"></i>
+                                    </div>
+                                </a>
+                                <div class="collapse" id="collapseLayouts2" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                    <nav class="sb-sidenav-menu-nested nav ">
+                                        <a class="nav-link" href="@Url.Action("Donhang","Banhang")">Đơn hàng</a>
+                                        <a class="nav-link" href="@Url.Action("Danhgia_Nhanxet","Banhang")">Đánh giá và nhận xét</a>
+                                    </nav>
+                                </div>
+                            </li>
+
+                            <li class="list-group-item p-2 ">
+                                <a class="nav-link collapsed p-0" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts3" aria-expanded="false" aria-controls="collapseLayouts">
+                                    <div class="sb-nav-link-icon">
+                                        <i class="fa-solid fa-users"></i>
+                                        QL tài khoản
+                                        <i class="fas fa-angle-down"></i>
+                                    </div>
+                                </a>
+                                <div class="collapse" id="collapseLayouts3" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                    <nav class="sb-sidenav-menu-nested nav">
+                                        <a class="nav-link" href="@Url.Action("Taikhoan","Khachhang")">Tài khoản</a>
+                                        <a class="nav-link" href="@Url.Action("Loaitaikhoan","Khachhang")">Loại tài khoản</a>
+                                        <a class="nav-link" href="@Url.Action("Thongketaikhoan","Khachhang")">Thống kê tài khoản</a>
+                                    </nav>
+                                </div>
+                            </li>
+                            <li class="list-group-item p-2 ">
+                                <a class="nav-link collapsed p-0" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts4" aria-expanded="false" aria-controls="collapseLayouts">
+                                    <div class="sb-nav-link-icon">
+                                        <i class="fas fa-columns pl-1 pr-2"></i>
+                                        Chăm sóc khách hàng
+                                        <i class="fas fa-angle-down"></i>
+                                    </div>
+                                </a>
+                                <div class="collapse" id="collapseLayouts4" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                    <nav class="sb-sidenav-menu-nested nav">
+                                        <a class="nav-link" href="@Url.Action("Khachhang","Chamsockhachhang")">Khách hàng</a>
+                                        <a class="nav-link" href="@Url.Action("Giaidap","Chamsockhachhang")">Giải đáp</a>
+                                    </nav>
+                                </div>
+                            </li>
+                            <a href="@Url.Action("Login","Login")" class="">
+                            <li class="list-group-item p-2">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <i class="fa-solid fa-right-to-bracket"></i>
+                                    </div>
+                                    <div class="col-10">
+                                        Đăng xuất
+                                    </div>
+                                </div>
+                            </li>
+                            </a>
+                        </ul>
+                    </div>
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+        <!--End: Side Bar-->
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="js/scripts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+    <script src="assets/demo/chart-area-demo.js"></script>
+    <script src="assets/demo/chart-bar-demo.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+    <script src="js/datatables-simple-demo.js"></script>
+</body>
+</html>

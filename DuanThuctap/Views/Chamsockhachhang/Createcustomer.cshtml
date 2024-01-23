@@ -1,0 +1,108 @@
+﻿@model DuanThuctap.Models.KHACHHANG
+@{
+    ViewBag.Title = "Create Customer";
+    Layout = "~/Views/Shared/Header_Menu.cshtml";
+}
+<style>
+    .fs-15 {
+        font-size: 14pt !important;
+        font-weight: 500;
+    }
+</style>
+<!--Side bar bên phải-->
+<div class="col-9 p-2 shadow-sm bg-white border border-2 ml-1" style="border-radius: 10px;margin-top: 64px;">
+    <main>
+        <div class="container-fluid px-4">
+            <h3>Thêm thông tin khách hàng</h3>
+            <hr />
+            <div>
+                <p class="text-center text-danger" style="font-size:16pt;font-weight:600;">Thông tin khách hàng</p>
+            </div>
+            <form method="post">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.AntiForgeryToken()
+                <div class="row">
+                    <div class="col-12 mt-4">
+                        <h6>Mã khách hàng</h6>
+                    </div>
+                    <div class="col-12">
+                        <input type="text" class="form-control" name="MAKH" placeholder="Nhập tên khách hàng ....." />
+                    </div>
+                    <div class="col-12 mt-1">
+                        @Html.ValidationMessageFor(m => m.MAKH, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-12 mt-4">
+                        <h6>Tên khách hàng</h6>
+                    </div>
+                    <div class="col-12">
+                        <input type="text" class="form-control" name="TENKH" placeholder="Nhập tên khách hàng ....." />
+                    </div>
+                    <div class="col-12 mt-1">
+                        @Html.ValidationMessageFor(m => m.TENKH, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-12 mt-4">
+                        <h6>Mã tài khoản</h6>
+                    </div>
+                    <div class="col-12">
+                        @Html.DropDownList("MATK", null, new { @class = "form-control" })
+                    </div>
+                    <div class="col-12 mt-1">
+                        @Html.ValidationMessageFor(model => model.MATK, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-12 mt-4">
+                        <h6>Giới tính</h6>
+                    </div>
+                    <div class="col-12">
+                        @Html.RadioButton("GIOITINH", "Nam") Nam
+                        @Html.RadioButton("GIOITINH", "Nữ") Nữ
+                    </div>
+                    <div class="col-12 mt-1">
+                        @Html.ValidationMessageFor(model => model.GIOITINH, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-12 mt-4">
+                        <h6>Số điện thoại</h6>
+                    </div>
+                    <div class="col-12">
+                        <input type="text" class="form-control" name="SDT" placeholder="Nhập số điện thoại ....." />
+                    </div>
+                    <div class="col-12 mt-1">
+                        @Html.ValidationMessageFor(model => model.SDT, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-12 mt-4">
+                        <h6>Địa chỉ</h6>
+                    </div>
+                    <div class="col-12">
+                        <input type="text" class="form-control" name="DIACHI" placeholder="Nhập địa chỉ ....." />
+                    </div>
+                    <div class="col-12 mt-1">
+                        @Html.ValidationMessageFor(model => model.DIACHI, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-12 mt-4">
+                        <h6>Địa chỉ</h6>
+                    </div>
+                    <div class="col-12">
+                        <input type="text" class="form-control" name="EMAIL" placeholder="Nhập địa chỉ ....." />
+                    </div>
+                    <div class="col-12 mt-1">
+                        @Html.ValidationMessageFor(model => model.EMAIL, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="col-12 mt-2">
+                        <p class="text-danger fs-15">
+                            @TempData["erorr"]
+                            @TempData["erorr1"]
+                        </p>
+                    </div>
+                    <div class="col-12">
+                        <a href="/Khachhang/Createcustomer">
+                            <button type="submit" class="btn btn-primary mt-2 px-4 " style="font-size:15pt;font-weight:600;">Thêm thông tin khách hàng</button>
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+
+</div>
+
+<!--Side bar bên phải-->

@@ -1,0 +1,87 @@
+﻿@model PagedList.IPagedList<DuanThuctap.Models.KHUYENMAI>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Khuyến mãi";
+    Layout = "~/Views/Shared/Header_Menu.cshtml";
+}
+<style>
+    .fw-title {
+        font-size: 14pt;
+        font-weight: 500;
+    }
+
+    .color-delete {
+        color: aliceblue;
+    }
+</style>
+<!--Side bar bên phải-->
+<div class="col-9 p-2 shadow-sm bg-white border border-2 ml-1" style="border-radius: 10px;margin-top: 64px;">
+    <main>
+        <div class="container-fluid px-4">
+            <h3 class="mb-3">Chương trình khuyến mãi</h3>
+
+            <div class="row mb-5">
+                <div class="col-6 my-auto ">
+                    @using(Html.BeginForm("Searchpromotion", "Sanpham", FormMethod.Get, new { @class = "form-inline" }))
+                    {
+                        <input type="text" name="searchpromotion" class="form-control mr-sm-2" placeholder="Search for promotion" style="width: 350px;" id="searchInput">
+                        <!-- Đoạn mã jQuery để xử lý sự kiện Enter -->
+                        <script src="~/Scripts/bootstrap.js"></script>
+                    }
+
+                </div>
+                <div class="col-6 text-right">
+                    <a href="/Sanpham/Createpromotion">
+                        <button type="button" class="btn btn-primary fw-title"><i class="fa-solid fa-plus" "></i> Create</button>
+                    </a>
+                </div>
+            </div>
+            <div class="table">
+                <table class="table table-striped table-hover text-center">
+                    <tr class="fw-title">
+                        <td>Mã khuyến mãi</td>
+                        <td>Tên khuyến mãi</td>
+                        <td>Phần trăm(đơn vị: % )</td>
+                        <td>Thao tác</td>
+                    </tr>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(m => item.MAKM)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.TENKM)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.PHANTRAM)
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-primary">
+                                    <a href="@Url.Action("Editpromotion", new { id = item.MAKM })" class="text-decoration-none color-delete">
+                                        <i class="fa-solid fa-pen-to-square"></i> Edit
+                                    </a>
+                                </button>
+                                <button type="button" class="btn btn-danger">
+                                    <a href="@Url.Action("Deletepromotion", new { id = item.MAKM})" class="text-decoration-none color-delete">
+                                        <i class="fa-solid fa-trash-can"></i> Delete
+                                    </a>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </table>
+                <hr />
+                <!-- Thêm phân trang vào -->
+                <div class="text-right fw-title text-primary">
+                    Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+                </div>
+                @Html.PagedListPager(Model, page => Url.Action("Khuyenmai", new { page }))
+                <!-- Kết thúc -->
+
+            </div>
+        </div>
+    </main>
+</div>
+<!--Side bar bên phải-->

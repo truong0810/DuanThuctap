@@ -1,0 +1,75 @@
+﻿@model DuanThuctap.Models.TAIKHOAN
+
+@{
+    ViewBag.Title = "Sửa tài khoản";
+    Layout = "~/Views/Shared/Header_Menu.cshtml";
+}
+
+<!--Side bar bên phải-->
+<div class="col-9 p-2 shadow-sm bg-white border border-2 ml-1" style="border-radius: 10px;margin-top: 64px;">
+    <main>
+        <div class="container-fluid px-4">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h4>Sửa thông tin tài khoản</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(m => m.MATK)
+                @Html.HiddenFor(m => m.NGAYDANGKY)
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.TENDN, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.TENDN, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.TENDN, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.LOAITK, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("MALOAITK", null, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.LOAITK, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.MATKHAU, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.MATKHAU, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.MATKHAU, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.TRANGTHAI, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.RadioButtonFor(m => m.TRANGTHAI, "True") True
+                        @Html.RadioButtonFor(m => m.TRANGTHAI, "False") False
+                        @Html.ValidationMessageFor(model => model.TRANGTHAI, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EMAIL, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.EMAIL, new { htmlAttributes = new { @class = "form-control", type = "email" } })
+                        @Html.ValidationMessageFor(model => model.EMAIL, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                @ViewData["Erorr"]
+                @ViewData["erorr1"]
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                        <a href="/Khachhang/Taikhoan">
+                            <button type="button" class="btn btn-primary">Quay lại</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+    </main>
+</div>
+<!--Side bar bên phải-->

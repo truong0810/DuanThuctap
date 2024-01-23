@@ -1,0 +1,140 @@
+﻿@model DuanThuctap.Models.SANPHAM
+@{
+    ViewBag.Title = "Sản phẩm";
+    Layout = "~/Views/Shared/Header_Menu.cshtml";
+}
+
+<style>
+    .fs-15 {
+        font-size: 14pt !important;
+        font-weight: 500;
+    }
+</style>
+<!--Side bar bên phải-->
+<div class="col-9 p-2 shadow-sm bg-white border border-2 ml-1" style="border-radius: 10px;margin-top: 64px;">
+    <main>
+        <div class="container-fluid px-4">
+            <h3>Thêm sản phẩm</h3>
+            <div>
+                <p class="text-center text-danger" style="font-size:16pt;font-weight:600;">Thông tin sản phẩm</p>
+            </div>
+            <form method="post" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
+                <div class="row">
+                    <div class="col-12 mt-4">
+                        <h6>Tên sản phẩm</h6>
+                    </div>
+                    <div class="col-12">
+                        <input type="text" class="form-control" name="TENSP" placeholder="Nhập mã sản phẩm ....." />
+                    </div>
+                    <div class="col-12 mt-1">
+                        @Html.ValidationMessageFor(model => model.TENSP, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="col-12 mt-4">
+                        <h6>Tên loại sản phẩm</h6>
+                    </div>
+                    <div class="col-12 ">
+                        @Html.DropDownList("MALOAISP",ViewBag.MALOAISP as SelectList, null, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                    <div class="col-12 mt-1">
+                        @Html.ValidationMessageFor(model => model.LOAISANPHAM.TENLOAISP, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="col-12 mt-4">
+                        <h6>Tên thương hiệu</h6>
+                    </div>
+                    <div class="col-12">
+                        @Html.DropDownList("MATH", ViewBag.MATH as SelectList, new { @class = "form-control" })
+                    </div>
+                    <div class="col-12 mt-1">
+                        @Html.ValidationMessageFor(model => model.THUONGHIEU.TENTH, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="col-12 mt-4">
+                        <h6>Tên khuyến mãi</h6>
+                    </div>
+                    <div class="col-12">
+                        @Html.DropDownList("MAKM", ViewBag.MAKM as SelectList, null, htmlAttributes: new { @class = "form-control" })
+
+                    </div>
+                    <div class="col-12 mt-1">
+                        @Html.ValidationMessageFor(model => model.KHUYENMAI.TENKM, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="col-12 mt-4">
+                        <h6>Hình nhỏ</h6>
+                    </div>
+                    <div class="col-12">
+                        <input type="file" class="form-control" name="HINHNHO" />
+                    </div>
+                    <div class="col-12 mt-1 size-img">
+                        @Html.ValidationMessageFor(model => model.HINHNHO, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="col-12 mt-4">
+                        <h6>Hình lớn</h6>
+                    </div>
+                    <div class="col-12">
+                        <input type="file" class="form-control" name="HINHLON" />
+                    </div>
+                    <div class="col-12 mt-1">
+                        @Html.ValidationMessageFor(model => model.HINHLON, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="col-12 mt-4">
+                        <h6>Số lượng</h6>
+                    </div>
+                    <div class="col-12">
+                        <input type="number" class="form-control" name="SOLUONG" placeholder="Nhập số lượng ....." />
+                    </div>
+                    <div class="col-12 mt-1">
+                        @Html.ValidationMessageFor(model => model.SOLUONG, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="col-12 mt-4">
+                        <h6>Đơn giá</h6>
+                    </div>
+                    <div class="col-12">
+                        <input type="number" class="form-control" name="DONGIA" placeholder="Nhập đơn giá....." />
+                    </div>
+
+                    <div class="col-12 mt-4">
+                        <h6>Mô tả</h6>
+                    </div>
+                    <div class="col-12">
+                        @Html.TextArea("MOTA", new { @class = "form-control", @id = "MOTA" })
+                        <script>
+                            ClassicEditor
+                                .create(document.querySelector('#MOTA'), {
+                                    autoParagraph: false,
+                                    enterMode: CKEDITOR.ENTER_BR
+                                })
+                                .catch(error => {
+                                    console.error(error);
+                                });
+                        </script>
+                    </div>
+                    <div class="col-12 mt-1">
+                        @Html.ValidationMessageFor(model => model.MOTA, "", new { @class = "text-danger" })
+                    </div>
+
+
+                    <div class="col-12 mt-2">
+                        <p class="text-danger fs-15">@TempData["erorr"]</p>
+                        @ViewBag.Message
+                    </div>
+                    <div class="col-12">
+                        <a href="@Url.Action("Createsanpham", "Sanpham")">
+                            <button type="submit" class="btn btn-primary mt-2 px-4 " style="font-size:15pt;font-weight:600;">Thêm loại sản phẩm</button>
+                        </a>
+                        <a href="@Url.Action("Thongtinssanpham", "Sanpham")">
+                            <button type="button" class="btn btn-primary mt-2 px-4 " style="font-size:15pt;font-weight:600;">Quay lại</button>
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+</div>
+<!--Side bar bên phải-->

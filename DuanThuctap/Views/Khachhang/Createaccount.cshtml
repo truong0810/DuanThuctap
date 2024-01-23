@@ -1,0 +1,79 @@
+﻿@model DuanThuctap.Models.TAIKHOAN
+@{
+    ViewBag.Title = "Create Account";
+    Layout = "~/Views/Shared/Header_Menu.cshtml";
+}
+<style>
+    .fs-15 {
+        font-size: 14pt !important;
+        font-weight: 500;
+    }
+</style>
+<!--Side bar bên phải-->
+<div class="col-9 p-2 shadow-sm bg-white border border-2 ml-1" style="border-radius: 10px;margin-top: 64px;">
+    <main>
+        <div class="container-fluid px-4">
+            <h3>Thêm tài khoản</h3>
+            <div>
+                <p class="text-center text-danger" style="font-size:16pt;font-weight:600;">Thông tin tài khoản</p>
+            </div>
+            <form method="post">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.AntiForgeryToken()
+                <div class="row">
+                    <div class="col-12 mt-4">
+                        <h6>Tên tài khoản</h6>
+                    </div>
+                    <div class="col-12">
+                        <input type="text" class="form-control" name="TENDN" placeholder="Nhập tên người dùng ....." />
+                    </div>
+                    <div class="col-12 mt-1">
+                        @Html.ValidationMessageFor(model => model.TENDN, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-12 mt-4">
+                        <h6>Loại tài khoản</h6>
+                    </div>
+                    <div class="col-12">
+                        @Html.DropDownList("MALOAITK", null, new { @class = "form-control" })
+                    </div>
+                    <div class="col-12 mt-1">
+                        @Html.ValidationMessageFor(model => model.LOAITK.TENLOAITK, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-12 mt-4">
+                        <h6>Mật khẩu</h6>
+                    </div>
+                    <div class="col-12">
+                        <input type="text" class="form-control" name="MATKHAU" placeholder="Nhập mật khẩu ....." />
+                    </div>
+                    <div class="col-12 mt-1">
+                        @Html.ValidationMessageFor(model => model.MATKHAU, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-12 mt-4">
+                        <h6>Email</h6>
+                    </div>
+                    <div class="col-12">
+                        <input type="email" class="form-control" name="EMAIL" placeholder="Nhập email ....." />
+                    </div>
+                    <div class="col-12 mt-1">
+                        @Html.ValidationMessageFor(model => model.EMAIL, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="col-12 mt-2">
+                        <p class="text-danger fs-15">
+                            @TempData["erorr"]
+                            @TempData["erorr1"]
+                        </p>
+                    </div>
+                    <div class="col-12">
+                        <a href="/Khachhang/Createaccount">
+                            <button type="submit" class="btn btn-primary mt-2 px-4 " style="font-size:15pt;font-weight:600;">Thêm tài khoản</button>
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+
+</div>
+
+<!--Side bar bên phải-->
