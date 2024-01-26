@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="BANDONGHOModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="BANDONGHOModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="CHITIETDONHANG">
           <Key>
             <PropertyRef Name="MADH" />
@@ -27,6 +27,17 @@
           <Property Name="NGAYGIAO" Type="datetime" />
           <Property Name="MOTA" Type="ntext" />
           <Property Name="TONGTIEN" Type="float" />
+          <Property Name="SOLUONG" Type="int" />
+          <Property Name="MASP" Type="int" />
+        </EntityType>
+        <EntityType Name="Hoadon">
+          <Key>
+            <PropertyRef Name="MAHD" />
+          </Key>
+          <Property Name="MAHD" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MAKH" Type="int" />
+          <Property Name="MADH" Type="int" />
+          <Property Name="MASP" Type="int" />
         </EntityType>
         <EntityType Name="KHACHHANG">
           <Key>
@@ -144,6 +155,54 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DONHANG_SANPHAM">
+          <End Role="SANPHAM" Type="Self.SANPHAM" Multiplicity="0..1" />
+          <End Role="DONHANG" Type="Self.DONHANG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SANPHAM">
+              <PropertyRef Name="MASP" />
+            </Principal>
+            <Dependent Role="DONHANG">
+              <PropertyRef Name="MASP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Hoadon_DONHANG">
+          <End Role="DONHANG" Type="Self.DONHANG" Multiplicity="0..1" />
+          <End Role="Hoadon" Type="Self.Hoadon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DONHANG">
+              <PropertyRef Name="MADH" />
+            </Principal>
+            <Dependent Role="Hoadon">
+              <PropertyRef Name="MADH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Hoadon_KHACHHANG">
+          <End Role="KHACHHANG" Type="Self.KHACHHANG" Multiplicity="0..1" />
+          <End Role="Hoadon" Type="Self.Hoadon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KHACHHANG">
+              <PropertyRef Name="MAKH" />
+            </Principal>
+            <Dependent Role="Hoadon">
+              <PropertyRef Name="MAKH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Hoadon_SANPHAM">
+          <End Role="SANPHAM" Type="Self.SANPHAM" Multiplicity="0..1" />
+          <End Role="Hoadon" Type="Self.Hoadon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SANPHAM">
+              <PropertyRef Name="MASP" />
+            </Principal>
+            <Dependent Role="Hoadon">
+              <PropertyRef Name="MASP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_KH_TK">
           <End Role="TAIKHOAN" Type="Self.TAIKHOAN" Multiplicity="0..1" />
           <End Role="KHACHHANG" Type="Self.KHACHHANG" Multiplicity="*" />
@@ -207,6 +266,7 @@
         <EntityContainer Name="BANDONGHOModelStoreContainer">
           <EntitySet Name="CHITIETDONHANG" EntityType="Self.CHITIETDONHANG" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DONHANG" EntityType="Self.DONHANG" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Hoadon" EntityType="Self.Hoadon" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KHACHHANG" EntityType="Self.KHACHHANG" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KHUYENMAI" EntityType="Self.KHUYENMAI" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LOAISANPHAM" EntityType="Self.LOAISANPHAM" Schema="dbo" store:Type="Tables" />
@@ -226,6 +286,22 @@
           <AssociationSet Name="FK_DH_KH" Association="Self.FK_DH_KH">
             <End Role="KHACHHANG" EntitySet="KHACHHANG" />
             <End Role="DONHANG" EntitySet="DONHANG" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DONHANG_SANPHAM" Association="Self.FK_DONHANG_SANPHAM">
+            <End Role="SANPHAM" EntitySet="SANPHAM" />
+            <End Role="DONHANG" EntitySet="DONHANG" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Hoadon_DONHANG" Association="Self.FK_Hoadon_DONHANG">
+            <End Role="DONHANG" EntitySet="DONHANG" />
+            <End Role="Hoadon" EntitySet="Hoadon" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Hoadon_KHACHHANG" Association="Self.FK_Hoadon_KHACHHANG">
+            <End Role="KHACHHANG" EntitySet="KHACHHANG" />
+            <End Role="Hoadon" EntitySet="Hoadon" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Hoadon_SANPHAM" Association="Self.FK_Hoadon_SANPHAM">
+            <End Role="SANPHAM" EntitySet="SANPHAM" />
+            <End Role="Hoadon" EntitySet="Hoadon" />
           </AssociationSet>
           <AssociationSet Name="FK_KH_TK" Association="Self.FK_KH_TK">
             <End Role="TAIKHOAN" EntitySet="TAIKHOAN" />
@@ -248,8 +324,7 @@
             <End Role="TAIKHOAN" EntitySet="TAIKHOAN" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BANDONGHOModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -279,6 +354,10 @@
           <Property Name="TONGTIEN" Type="Double" />
           <NavigationProperty Name="CHITIETDONHANGs" Relationship="Self.FK_CTDH_DH" FromRole="DONHANG" ToRole="CHITIETDONHANG" />
           <NavigationProperty Name="KHACHHANG" Relationship="Self.FK_DH_KH" FromRole="DONHANG" ToRole="KHACHHANG" />
+          <Property Name="SOLUONG" Type="Int32" />
+          <Property Name="MASP" Type="Int32" />
+          <NavigationProperty Name="SANPHAM" Relationship="BANDONGHOModel.FK_DONHANG_SANPHAM" FromRole="DONHANG" ToRole="SANPHAM" />
+          <NavigationProperty Name="Hoadons" Relationship="BANDONGHOModel.FK_Hoadon_DONHANG" FromRole="DONHANG" ToRole="Hoadon" />
         </EntityType>
         <EntityType Name="KHACHHANG">
           <Key>
@@ -293,6 +372,7 @@
           <Property Name="DIACHI" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="DONHANGs" Relationship="Self.FK_DH_KH" FromRole="KHACHHANG" ToRole="DONHANG" />
           <NavigationProperty Name="TAIKHOAN" Relationship="Self.FK_KH_TK" FromRole="KHACHHANG" ToRole="TAIKHOAN" />
+          <NavigationProperty Name="Hoadons" Relationship="BANDONGHOModel.FK_Hoadon_KHACHHANG" FromRole="KHACHHANG" ToRole="Hoadon" />
         </EntityType>
         <EntityType Name="KHUYENMAI">
           <Key>
@@ -338,6 +418,8 @@
           <NavigationProperty Name="KHUYENMAI" Relationship="Self.FK_SANPHAM_KHUYENMAI" FromRole="SANPHAM" ToRole="KHUYENMAI" />
           <NavigationProperty Name="LOAISANPHAM" Relationship="Self.FK_SP_LSP" FromRole="SANPHAM" ToRole="LOAISANPHAM" />
           <NavigationProperty Name="THUONGHIEU" Relationship="Self.FK_SP_TH" FromRole="SANPHAM" ToRole="THUONGHIEU" />
+          <NavigationProperty Name="DONHANGs" Relationship="BANDONGHOModel.FK_DONHANG_SANPHAM" FromRole="SANPHAM" ToRole="DONHANG" />
+          <NavigationProperty Name="Hoadons" Relationship="BANDONGHOModel.FK_Hoadon_SANPHAM" FromRole="SANPHAM" ToRole="Hoadon" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -511,8 +593,85 @@
             <End Role="THUONGHIEU" EntitySet="THUONGHIEUx" />
             <End Role="SANPHAM" EntitySet="SANPHAMs" />
           </AssociationSet>
-        </EntityContainer>
-      </Schema>
+          <AssociationSet Name="FK_DONHANG_SANPHAM" Association="BANDONGHOModel.FK_DONHANG_SANPHAM">
+            <End Role="SANPHAM" EntitySet="SANPHAMs" />
+            <End Role="DONHANG" EntitySet="DONHANGs" />
+          </AssociationSet>
+          <EntitySet Name="Hoadons" EntityType="BANDONGHOModel.Hoadon" />
+          <AssociationSet Name="FK_Hoadon_DONHANG" Association="BANDONGHOModel.FK_Hoadon_DONHANG">
+            <End Role="DONHANG" EntitySet="DONHANGs" />
+            <End Role="Hoadon" EntitySet="Hoadons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Hoadon_KHACHHANG" Association="BANDONGHOModel.FK_Hoadon_KHACHHANG">
+            <End Role="KHACHHANG" EntitySet="KHACHHANGs" />
+            <End Role="Hoadon" EntitySet="Hoadons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Hoadon_SANPHAM" Association="BANDONGHOModel.FK_Hoadon_SANPHAM">
+            <End Role="SANPHAM" EntitySet="SANPHAMs" />
+            <End Role="Hoadon" EntitySet="Hoadons" />
+          </AssociationSet>
+          </EntityContainer>
+        <Association Name="FK_DONHANG_SANPHAM">
+          <End Type="BANDONGHOModel.SANPHAM" Role="SANPHAM" Multiplicity="0..1" />
+          <End Type="BANDONGHOModel.DONHANG" Role="DONHANG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SANPHAM">
+              <PropertyRef Name="MASP" />
+            </Principal>
+            <Dependent Role="DONHANG">
+              <PropertyRef Name="MASP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Hoadon">
+          <Key>
+            <PropertyRef Name="MAHD" />
+          </Key>
+          <Property Name="MAHD" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MAKH" Type="Int32" />
+          <Property Name="MADH" Type="Int32" />
+          <Property Name="MASP" Type="Int32" />
+          <NavigationProperty Name="DONHANG" Relationship="BANDONGHOModel.FK_Hoadon_DONHANG" FromRole="Hoadon" ToRole="DONHANG" />
+          <NavigationProperty Name="KHACHHANG" Relationship="BANDONGHOModel.FK_Hoadon_KHACHHANG" FromRole="Hoadon" ToRole="KHACHHANG" />
+          <NavigationProperty Name="SANPHAM" Relationship="BANDONGHOModel.FK_Hoadon_SANPHAM" FromRole="Hoadon" ToRole="SANPHAM" />
+        </EntityType>
+        <Association Name="FK_Hoadon_DONHANG">
+          <End Type="BANDONGHOModel.DONHANG" Role="DONHANG" Multiplicity="0..1" />
+          <End Type="BANDONGHOModel.Hoadon" Role="Hoadon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DONHANG">
+              <PropertyRef Name="MADH" />
+            </Principal>
+            <Dependent Role="Hoadon">
+              <PropertyRef Name="MADH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Hoadon_KHACHHANG">
+          <End Type="BANDONGHOModel.KHACHHANG" Role="KHACHHANG" Multiplicity="0..1" />
+          <End Type="BANDONGHOModel.Hoadon" Role="Hoadon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KHACHHANG">
+              <PropertyRef Name="MAKH" />
+            </Principal>
+            <Dependent Role="Hoadon">
+              <PropertyRef Name="MAKH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Hoadon_SANPHAM">
+          <End Type="BANDONGHOModel.SANPHAM" Role="SANPHAM" Multiplicity="0..1" />
+          <End Type="BANDONGHOModel.Hoadon" Role="Hoadon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SANPHAM">
+              <PropertyRef Name="MASP" />
+            </Principal>
+            <Dependent Role="Hoadon">
+              <PropertyRef Name="MASP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -530,6 +689,8 @@
           <EntitySetMapping Name="DONHANGs">
             <EntityTypeMapping TypeName="BANDONGHOModel.DONHANG">
               <MappingFragment StoreEntitySet="DONHANG">
+                <ScalarProperty Name="MASP" ColumnName="MASP" />
+                <ScalarProperty Name="SOLUONG" ColumnName="SOLUONG" />
                 <ScalarProperty Name="MADH" ColumnName="MADH" />
                 <ScalarProperty Name="MAKH" ColumnName="MAKH" />
                 <ScalarProperty Name="TRANGTHAI" ColumnName="TRANGTHAI" />
@@ -627,6 +788,16 @@
                 <ScalarProperty Name="MATH" ColumnName="MATH" />
                 <ScalarProperty Name="TENTH" ColumnName="TENTH" />
                 <ScalarProperty Name="HINHTH" ColumnName="HINHTH" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Hoadons">
+            <EntityTypeMapping TypeName="BANDONGHOModel.Hoadon">
+              <MappingFragment StoreEntitySet="Hoadon">
+                <ScalarProperty Name="MASP" ColumnName="MASP" />
+                <ScalarProperty Name="MADH" ColumnName="MADH" />
+                <ScalarProperty Name="MAKH" ColumnName="MAKH" />
+                <ScalarProperty Name="MAHD" ColumnName="MAHD" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -35,5 +35,6 @@ namespace DuanThuctap.Models
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TAIKHOAN> TAIKHOANs { get; set; }
         public virtual DbSet<THUONGHIEU> THUONGHIEUx { get; set; }
+        public virtual DbSet<Hoadon> Hoadons { get; set; }
     }
 }

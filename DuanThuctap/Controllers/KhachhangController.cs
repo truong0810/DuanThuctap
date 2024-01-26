@@ -92,7 +92,7 @@ namespace DuanThuctap.Controllers
         // POST: TAIKHOANs/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Deleteloaitk(string id,int? page)
+        public ActionResult Deleteloaitk(string id, int? page)
         {
             LOAITK loaitk = db.LOAITKs.Find(id);
             db.LOAITKs.Remove(loaitk);
@@ -118,7 +118,7 @@ namespace DuanThuctap.Controllers
             if (page == null) page = 1;
             int pagesize = 3;
             int pageNumber = (page ?? 1);
-            ViewBag.MALOAITK = new SelectList(db.LOAITKs,"MALOAITK", "TENLOAITK");
+            ViewBag.MALOAITK = new SelectList(db.LOAITKs, "MALOAITK", "TENLOAITK");
             return View(display.ToPagedList(pageNumber, pagesize));
         }
         public ActionResult Createaccount()
@@ -130,7 +130,7 @@ namespace DuanThuctap.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Createaccount([Bind(Include = "MATK,TENDN,MATKHAU,NGAYDANGKY,TRANGTHAI,MALOAITK,EMAIL")] TAIKHOAN tk)
         {
-            ViewBag.MALOAITK = new SelectList(db.LOAITKs,"MALOAITK", "TENLOAITK",tk.MALOAITK);
+            ViewBag.MALOAITK = new SelectList(db.LOAITKs, "MALOAITK", "TENLOAITK", tk.MALOAITK);
             if (ModelState.IsValid)
             {
                 if (db.TAIKHOANs.Any(m => m.MATK == tk.MATK))//chuyển thành tên người dùng-nếu có thời gian
@@ -172,7 +172,7 @@ namespace DuanThuctap.Controllers
             ViewBag.MALOAITK = new SelectList(db.LOAITKs, "MALOAITK", "TENLOAITK", tk.MALOAITK);
             if (ModelState.IsValid)
             {
-                
+
                 db.Entry(tk).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Taikhoan");
@@ -250,29 +250,37 @@ namespace DuanThuctap.Controllers
         }
         public ActionResult Thongketaikhoan()
         {
-            var statistical = db.TAIKHOANs.GroupBy(c => c.LOAITK.TENLOAITK).Select(group => new StatisticalAccount {
-                Categoryaccount = group.Key,
-                AccountCount = group.Count()
-
-            }).ToList();
-            statistical = statistical.OrderBy(c => c.AccountCount).ToList();
-            return View(statistical);
-        }
-
-        public ActionResult ThongKeDangKy()
-        {
-            var thongKeTheoThang = db.TAIKHOANs
-                .Where(t => t.NGAYDANGKY != null)
-                .GroupBy(t => new { Nam = t.NGAYDANGKY.Value.Year, Thang = t.NGAYDANGKY.Value.Month })
-                .Select(g => new ThongKeDangKy
+            var statisticalByCategory = db.TAIKHOANs
+                .GroupBy(c => c.LOAITK.TENLOAITK)
+                .Select(group => new StatisticalAccount
                 {
-                    Thang = g.Key.Thang + "/" + g.Key.Nam,
-                    SoLuong = g.Count()
+                    Categoryaccount = group.Key,
+                    AccountCount = group.Count()
                 })
-                .OrderBy(g => g.Thang)
+                .OrderBy(c => c.AccountCount)
                 .ToList();
 
-            return View(thongKeTheoThang);
+            var statisticalByMonth = db.TAIKHOANs
+                .Where(t => t.NGAYDANGKY != null)
+                .GroupBy(t => new { t.NGAYDANGKY.Value.Month, t.NGAYDANGKY.Value.Year })
+                .Select(group => new StatisticalAccount
+                {
+                    Month = group.Key.Month,
+                    Year=group.Key.Year,
+                    AccountCount = group.Count()
+                })
+                .OrderBy(group => group.Year)
+                .ToList();
+
+            var combinedStatistical = new CombinedStatistical
+            {
+                StatisticalByCategory = statisticalByCategory,
+                StatisticalByMonth = statisticalByMonth
+            };
+
+            return View(combinedStatistical);
         }
+
     }
+
 }

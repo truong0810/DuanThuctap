@@ -197,6 +197,11 @@ namespace DuanThuctap.Controllers
             {
                 db.CHITIETDONHANGs.Remove(chitiet);
             }
+            var display = db.DONHANGs.Where(c => c.MADH == id);
+            foreach (var donhang in display)
+            {
+                db.DONHANGs.Remove(donhang);
+            }
             db.SANPHAMs.Remove(masp);
             db.SaveChanges();
             return RedirectToAction("Thongtinssanpham");

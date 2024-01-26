@@ -9,5 +9,7 @@ namespace DuanThuctap.Models
     {
         public string Categoryaccount;
         public int AccountCount;
+        public int Month;
+        public int Year;
     }
 }

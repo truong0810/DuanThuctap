@@ -1,0 +1,61 @@
+﻿@model DuanThuctap.Models.Hoadon
+
+@{
+    ViewBag.Title = "Sửa loại thông tin khách hàng";
+    Layout = "~/Views/Shared/Header_Menu.cshtml";
+}
+
+<!--Side bar bên phải-->
+<div class="col-9 p-2 shadow-sm bg-white border border-2 ml-1" style="border-radius: 10px;margin-top: 64px;">
+    <main>
+        <div class="container-fluid px-4">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+            <div class="form-horizontal">
+                <h4>Sửa thông tin hóa đơn</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(m => m.MAHD)
+                @Html.HiddenFor(m => m.DONHANG.NGAYDAT)
+                @Html.HiddenFor(m => m.DONHANG.SOLUONG)
+                @Html.HiddenFor(m => m.DONHANG.TONGTIEN)
+                @Html.HiddenFor(m => m.SANPHAM.TENSP)
+                @Html.HiddenFor(m => m.KHACHHANG.TENKH)
+                @Html.HiddenFor(m => m.DONHANG.MOTA)
+                @Html.HiddenFor(m => m.DONHANG.DIACHIGIAO)
+                @Html.HiddenFor(m => m.DONHANG.SDT)
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DONHANG.NGAYGIAO, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.DONHANG.NGAYGIAO, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.DONHANG.NGAYGIAO, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DONHANG.TRANGTHAI, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.DONHANG.TRANGTHAI, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.DONHANG.TRANGTHAI, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                        <a href="@Url.Action("Donhangdaduyet","Banhang")">
+                            <button type="button" class="btn btn-primary">Quay lại</button>
+                        </a>
+                    </div>
+
+                </div>
+                <div class="text-danger">
+                    @ViewBag.erorr
+                </div>
+            </div>
+            }
+        </div>
+    </main>
+</div>
+<!--Side bar bên phải-->

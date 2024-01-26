@@ -1,0 +1,38 @@
+﻿@model DuanThuctap.Models.DONHANG
+
+@{
+    ViewBag.Title = "Xử lý đơn hàng";
+    Layout = "~/Views/Shared/Header_Menu.cshtml";
+}
+
+
+<!--Side bar bên phải-->
+<div class="col-9 p-2 shadow-sm bg-white border border-2 ml-1" style="border-radius: 10px;margin-top: 64px;">
+    <main>
+        <div class="container-fluid px-4">
+            <h3>Xác nhận đơn hàng</h3>
+            <hr />
+            <div>
+                <dl class="dl-horizontal">
+                    <dt>
+                        Bạn có thực sự muốn hủy đơn hàng :  @Html.DisplayFor(m=>m.MADH)
+                    </dt>
+                </dl>
+
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-actions no-color">
+                        <input type="submit" value="Hủy" class="btn btn-primary" />
+                        <a href="@Url.Action("Donhang","Banhang")">
+                            <button type="button" class="btn btn-primary">Quay lại</button>
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+
+    </main>
+</div>
+<!--Side bar bên phải-->

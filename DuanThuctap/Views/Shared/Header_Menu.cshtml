@@ -53,9 +53,22 @@
                         <img src="/img/Logo.svg" alt="Ảnh logo.svg">
                     </div>
                     <div class="col-8 my-auto ">
-                        <form class="form-inline ">
-                            <input type="text" class="form-control mr-sm-2" placeholder="Search" style="width: 350px;">
+                        <form class="form-inline">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" id="searchInput" placeholder="Search" style="width: 350px;" aria-describedby="button-addon2">
+                                <div class="input-group-prepend" onclick="focusSearchInput()">
+                                    <span class="input-group-text" id="button-addon2">
+                                        <i class="fa fa-search"></i>
+                                    </span>
+                                </div>
+                            </div>
                         </form>
+                        <script>
+                            function focusSearchInput() {
+                                document.getElementById('searchInput').focus();
+                            }
+                        </script>
+
                     </div>
 
                     <div class="col-2 d-flex align-items-center">
@@ -131,7 +144,8 @@
                                 </a>
                                 <div class="collapse" id="collapseLayouts2" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                     <nav class="sb-sidenav-menu-nested nav ">
-                                        <a class="nav-link" href="@Url.Action("Donhang","Banhang")">Đơn hàng</a>
+                                        <a class="nav-link" href="@Url.Action("Donhang","Banhang")">Đơn hàng chưa duyệt</a>
+                                        <a class="nav-link" href="@Url.Action("Donhangdaduyet","Banhang")">Đơn hàng đã duyệt</a>
                                         <a class="nav-link" href="@Url.Action("Danhgia_Nhanxet","Banhang")">Đánh giá và nhận xét</a>
                                     </nav>
                                 </div>

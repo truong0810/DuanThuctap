@@ -23,6 +23,11 @@
         <AssociationConnector Association="BANDONGHOModel.FK_SP_LSP" ManuallyRouted="false" />
         <AssociationConnector Association="BANDONGHOModel.FK_TK_LTK" ManuallyRouted="false" />
         <AssociationConnector Association="BANDONGHOModel.FK_SP_TH" ManuallyRouted="false" />
+        <AssociationConnector Association="BANDONGHOModel.FK_DONHANG_SANPHAM" />
+        <EntityTypeShape EntityType="BANDONGHOModel.Hoadon" Width="1.5" PointX="6.875" PointY="8.5" />
+        <AssociationConnector Association="BANDONGHOModel.FK_Hoadon_DONHANG" />
+        <AssociationConnector Association="BANDONGHOModel.FK_Hoadon_KHACHHANG" />
+        <AssociationConnector Association="BANDONGHOModel.FK_Hoadon_SANPHAM" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
