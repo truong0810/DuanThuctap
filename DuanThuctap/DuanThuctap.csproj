@@ -145,7 +145,6 @@
     <Compile Include="Controllers\KhachhangController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\SanphamController.cs" />
-    <Compile Include="Controllers\TAIKHOANsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -298,11 +297,6 @@
     <Content Include="Views\Sanpham\Thongkesanpham.cshtml" />
     <Content Include="Views\Chamsockhachhang\Khachhang.cshtml" />
     <Content Include="Views\Chamsockhachhang\Giaidap.cshtml" />
-    <Content Include="Views\TAIKHOANs\Create.cshtml" />
-    <Content Include="Views\TAIKHOANs\Delete.cshtml" />
-    <Content Include="Views\TAIKHOANs\Details.cshtml" />
-    <Content Include="Views\TAIKHOANs\Edit.cshtml" />
-    <Content Include="Views\TAIKHOANs\Index.cshtml" />
     <Content Include="Views\Sanpham\Loaisanpham.cshtml" />
     <Content Include="Views\Sanpham\Createloaisanpham.cshtml" />
     <Content Include="Views\Sanpham\Delete.cshtml" />
