@@ -11,8 +11,7 @@ namespace DuanThuctap.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class DONHANG
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -27,14 +26,13 @@ namespace DuanThuctap.Models
         public string TRANGTHAI { get; set; }
         public string DIACHIGIAO { get; set; }
         public string SDT { get; set; }
-        [DataType(DataType.Date)]
         public Nullable<System.DateTime> NGAYDAT { get; set; }
-        [DataType(DataType.Date)]
         public Nullable<System.DateTime> NGAYGIAO { get; set; }
         public string MOTA { get; set; }
         public Nullable<double> TONGTIEN { get; set; }
         public Nullable<int> SOLUONG { get; set; }
         public Nullable<int> MASP { get; set; }
+        public string DANHGIA { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CHITIETDONHANG> CHITIETDONHANGs { get; set; }

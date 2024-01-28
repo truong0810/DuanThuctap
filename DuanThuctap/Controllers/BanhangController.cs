@@ -78,8 +78,8 @@ namespace DuanThuctap.Controllers
                     hoadon = new Hoadon
                     {
                         MADH = order.MADH,
-                        MAKH = order.MAKH,
-                        MASP = order.MASP,
+                        MAKH = (int)order.MAKH,
+                        MASP = (int)order.MASP,
                         // Gán các thuộc tính khác nếu có
                     };
                     // Thêm hóa đơn mới vào DbSet
@@ -88,8 +88,8 @@ namespace DuanThuctap.Controllers
                 else
                 {
                     // Cập nhật thông tin từ DONHANG vào Hoadon
-                    hoadon.MAKH = order.MAKH;
-                    hoadon.MASP = order.MASP;
+                    hoadon.MAKH = (int)order.MAKH;
+                    hoadon.MASP = (int)order.MASP;
                     // Cập nhật các thuộc tính khác nếu có
                 }
                 // Lưu thay đổi vào cơ sở dữ liệu
@@ -136,9 +136,13 @@ namespace DuanThuctap.Controllers
             }
             return View(hoadon);
         }
-        public ActionResult Danhgia_Nhanxet()
+        public ActionResult Danhgia_Nhanxet(int? page)
         {
-            return View();
+            var display = db.DONHANGs.Include("KHACHHANG").ToList();
+            if (page == null) page = 1;
+            int pagesize = 15;
+            int pageNumber = (page ?? 1);
+            return View(display.ToPagedList(pageNumber, pagesize));
         }
     }
 }

@@ -44,12 +44,17 @@ namespace DuanThuctap.Controllers
                 if (user.TRANGTHAI == true && user.MALOAITK == "LK00002")
                 {
                     Session["nameuser"] = tennd;
-                    return View("~/Views/Dashboard/Index.cshtml");
+                    return RedirectToAction("Index","Dashboard");
+                } else if (user.TRANGTHAI == true && user.MALOAITK == "LK00001")
+                {
+                    Session["name"] = tennd;
+                    return RedirectToAction("Index", "User", new { area = "User" });
                 }
                 else
                 {
                     TempData["erorr"] = "Tài khoản không có quyền đăng nhập!";
                 }
+                
             }
             else
             {
@@ -62,10 +67,12 @@ namespace DuanThuctap.Controllers
 
 
 
+
         //Logout
         public ActionResult Logout()
         {
             Session.Remove("nameuser");
+            Session.Remove("name");
             return View("~/Views/Login/Login.cshtml");
         }
 
@@ -84,7 +91,7 @@ namespace DuanThuctap.Controllers
                     TempData["erorr1"] = "Tên người dùng đã tồn tại";
                     return View(tk);
                 }
-                tk.MALOAITK = "LK00002";
+                tk.MALOAITK = "LK00001";
                 tk.TRANGTHAI = true;
                 tk.NGAYDANGKY = DateTime.Now;
                 db.TAIKHOANs.Add(tk);

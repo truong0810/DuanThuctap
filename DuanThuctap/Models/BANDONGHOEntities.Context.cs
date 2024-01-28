@@ -27,6 +27,7 @@ namespace DuanThuctap.Models
     
         public virtual DbSet<CHITIETDONHANG> CHITIETDONHANGs { get; set; }
         public virtual DbSet<DONHANG> DONHANGs { get; set; }
+        public virtual DbSet<Hoadon> Hoadons { get; set; }
         public virtual DbSet<KHACHHANG> KHACHHANGs { get; set; }
         public virtual DbSet<KHUYENMAI> KHUYENMAIs { get; set; }
         public virtual DbSet<LOAISANPHAM> LOAISANPHAMs { get; set; }
@@ -35,6 +36,5 @@ namespace DuanThuctap.Models
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TAIKHOAN> TAIKHOANs { get; set; }
         public virtual DbSet<THUONGHIEU> THUONGHIEUx { get; set; }
-        public virtual DbSet<Hoadon> Hoadons { get; set; }
     }
 }

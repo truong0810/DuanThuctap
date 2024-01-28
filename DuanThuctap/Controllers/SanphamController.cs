@@ -20,11 +20,11 @@ namespace DuanThuctap.Controllers
         {
             if (page == null) page = 1;
 
-            var display = db.LOAISANPHAMs.Include(t => t.SANPHAMs).OrderBy(t=>t.MALOAISP);
+            var display = db.LOAISANPHAMs.Include(t => t.SANPHAMs).OrderBy(t => t.MALOAISP);
             int pagesize = 3;
             int pageNumber = (page ?? 1);
 
-            return View(display.ToPagedList(pageNumber,pagesize));
+            return View(display.ToPagedList(pageNumber, pagesize));
 
         }
         public ActionResult Createloaisanpham()
@@ -33,7 +33,7 @@ namespace DuanThuctap.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Createloaisanpham([Bind(Include ="MALOAISP,TENLOAISP") ] LOAISANPHAM loaisp)
+        public ActionResult Createloaisanpham([Bind(Include = "MALOAISP,TENLOAISP")] LOAISANPHAM loaisp)
         {
             if (ModelState.IsValid)
             {
@@ -63,15 +63,32 @@ namespace DuanThuctap.Controllers
             }
             return View(loaisp);
         }
-        [HttpPost,ActionName("Delete")]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult Deleteloaisp(string id)
         {
-            LOAISANPHAM masp = db.LOAISANPHAMs.Find(id);
-            db.LOAISANPHAMs.Remove(masp);
+            LOAISANPHAM loaiSanPham = db.LOAISANPHAMs.Find(id);
+            var hoadonsToRemove = db.Hoadons.Where(c => c.SANPHAM.MALOAISP == id).ToList();
+            foreach (var hoadon in hoadonsToRemove)
+            {
+                foreach (var chitiet in hoadon.DONHANG.CHITIETDONHANGs.ToList())
+                {
+                    db.CHITIETDONHANGs.Remove(chitiet);
+                }
+                db.Hoadons.Remove(hoadon);
+            }
+            var sanpham = db.SANPHAMs.Where(c => c.MALOAISP == id);
+            foreach (var sp in sanpham)
+            {
+                db.SANPHAMs.Remove(sp);
+            }
+            db.LOAISANPHAMs.Remove(loaiSanPham);
             db.SaveChanges();
+
             return RedirectToAction("Loaisanpham");
         }
+
+
         public ActionResult Edit(string id)
         {
             if (id == null)
@@ -88,13 +105,13 @@ namespace DuanThuctap.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include ="MALOAISP,TENLOAISP")]LOAISANPHAM loaisp)
+        public ActionResult Edit([Bind(Include = "MALOAISP,TENLOAISP")] LOAISANPHAM loaisp)
         {
             if (ModelState.IsValid)
             {
-                    db.Entry(loaisp).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Loaisanpham");
+                db.Entry(loaisp).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Loaisanpham");
             }
             else
             {
@@ -112,7 +129,7 @@ namespace DuanThuctap.Controllers
                 var displaytensp = display.Where(m => m.TENLOAISP.Contains(search));
                 display = displaymasp.Concat(displaytensp);
             }
-            
+
             return View(display.ToList());
         }
         //Phần Thông tin sản phẩm
@@ -121,10 +138,10 @@ namespace DuanThuctap.Controllers
             ViewBag.Tenloaisp = new SelectList(db.LOAISANPHAMs, "MALOAISP", "TENLOAISP");
             if (page == null) page = 1;
 
-            var display = db.SANPHAMs.Include(t => t.THUONGHIEU).Include(t=>t.LOAISANPHAM).Include(t=>t.KHUYENMAI).OrderBy(t => t.MASP);
+            var display = db.SANPHAMs.Include(t => t.THUONGHIEU).Include(t => t.LOAISANPHAM).Include(t => t.KHUYENMAI).OrderBy(t => t.MASP);
             int pagesize = 3;
             int pageNumber = (page ?? 1);
-            ViewBag.currentSize=page;
+            ViewBag.currentSize = page;
             return View(display.ToPagedList(pageNumber, pagesize));
         }
         public ActionResult Createsanpham()
@@ -138,7 +155,7 @@ namespace DuanThuctap.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
-        public ActionResult Createsanpham([Bind(Include ="MASP,TENSP,HINHNHO,MOTA,MATH,DANHGIA,HINHLON,SOLUONG,MALOAISP,DONGIA,MAKM")] SANPHAM sanpham, HttpPostedFileBase HINHNHO, HttpPostedFileBase HINHLON)
+        public ActionResult Createsanpham([Bind(Include = "MASP,TENSP,HINHNHO,MOTA,MATH,DANHGIA,HINHLON,SOLUONG,MALOAISP,DONGIA,MAKM")] SANPHAM sanpham, HttpPostedFileBase HINHNHO, HttpPostedFileBase HINHLON)
         {
             if (ModelState.IsValid)
             {
@@ -151,6 +168,10 @@ namespace DuanThuctap.Controllers
                         HINHNHO.SaveAs(_path);
                         sanpham.HINHNHO = _FileName;
                     }
+                    else
+                    {
+                        ViewBag.erorr = "Bạn chưa chọn ảnh nhỏ";
+                    }
                     if (HINHLON.ContentLength > 0)
                     {
                         string _FileName1 = Path.GetFileName(HINHLON.FileName);
@@ -158,6 +179,11 @@ namespace DuanThuctap.Controllers
                         HINHLON.SaveAs(_path1);
                         sanpham.HINHLON = _FileName1;
                     }
+                    else
+                    {
+                        ViewBag.erorr1 = "Bạn chưa chọn ảnh Lớn";
+                    }
+                    sanpham.MOTA.Trim();
                     db.SANPHAMs.Add(sanpham);
                     db.SaveChanges();
                     return RedirectToAction("Thongtinssanpham");
@@ -279,12 +305,12 @@ namespace DuanThuctap.Controllers
             }
             return View(sANPHAM);
         }
-        public ActionResult SearchProduct(string searchproduct,int?page)
+        public ActionResult SearchProduct(string searchproduct, int? page)
         {
             var display = db.SANPHAMs.Include(m => m.LOAISANPHAM).Include(m => m.THUONGHIEU).Include(m => m.KHUYENMAI);
             if (!string.IsNullOrEmpty(searchproduct))
             {
-                var displaymasp = display.Where(m=>m.MASP.ToString().Contains(searchproduct));
+                var displaymasp = display.Where(m => m.MASP.ToString().Contains(searchproduct));
                 var displaytensp = display.Where(m => m.TENSP.Contains(searchproduct));
                 display = displaymasp.Concat(displaytensp);
                 if (page == null) page = 1;
@@ -295,7 +321,7 @@ namespace DuanThuctap.Controllers
                 return View(display.ToPagedList(pageNumber, pagesize));
             }
             return View();
-            
+
         }
         //Phần thống kê sản phẩm
         public ActionResult Thongkesanpham()
@@ -311,7 +337,7 @@ namespace DuanThuctap.Controllers
 
             return View(productCountByCategory);
         }
-        public ActionResult Thuonghieu( int? page)
+        public ActionResult Thuonghieu(int? page)
         {
             var display = db.THUONGHIEUx.ToList();
             if (page == null) page = 1;
@@ -320,7 +346,7 @@ namespace DuanThuctap.Controllers
             ViewBag.currentSize = page;
             return View(display.ToPagedList(pageNumber, pagesize));
         }
-        
+
 
         public ActionResult Deletetrademark(int? id)
         {
@@ -329,7 +355,7 @@ namespace DuanThuctap.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-           
+
             if (thuonghieu == null)
             {
                 return HttpNotFound();
@@ -352,7 +378,7 @@ namespace DuanThuctap.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Createtrademark([Bind(Include = "MATH,TENTH,HINHTH")] THUONGHIEU thuonghieu,HttpPostedFileBase HINHTH)
+        public ActionResult Createtrademark([Bind(Include = "MATH,TENTH,HINHTH")] THUONGHIEU thuonghieu, HttpPostedFileBase HINHTH)
         {
             if (ModelState.IsValid)
             {
@@ -380,7 +406,7 @@ namespace DuanThuctap.Controllers
             return View(thuonghieu);
         }
 
-        
+
         public ActionResult Edittrademark(int? id)
         {
             if (id == null)

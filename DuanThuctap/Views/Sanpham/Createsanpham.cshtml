@@ -70,6 +70,7 @@
                     </div>
                     <div class="col-12 mt-1 size-img">
                         @Html.ValidationMessageFor(model => model.HINHNHO, "", new { @class = "text-danger" })
+                        @ViewBag.erorr
                     </div>
 
                     <div class="col-12 mt-4">
@@ -80,6 +81,7 @@
                     </div>
                     <div class="col-12 mt-1">
                         @Html.ValidationMessageFor(model => model.HINHLON, "", new { @class = "text-danger" })
+                        @ViewBag.erorr1
                     </div>
 
                     <div class="col-12 mt-4">

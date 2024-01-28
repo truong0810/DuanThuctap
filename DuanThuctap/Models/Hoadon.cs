@@ -15,9 +15,9 @@ namespace DuanThuctap.Models
     public partial class Hoadon
     {
         public int MAHD { get; set; }
-        public Nullable<int> MAKH { get; set; }
-        public Nullable<int> MADH { get; set; }
-        public Nullable<int> MASP { get; set; }
+        public int MAKH { get; set; }
+        public int MADH { get; set; }
+        public int MASP { get; set; }
     
         public virtual DONHANG DONHANG { get; set; }
         public virtual KHACHHANG KHACHHANG { get; set; }

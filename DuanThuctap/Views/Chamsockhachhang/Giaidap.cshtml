@@ -3,12 +3,59 @@
     ViewBag.Title = "Giaidap";
     Layout = "~/Views/Shared/Header_Menu.cshtml";
 }
-<!--Side bar bên phải-->
-<div class="col-9 p-2 shadow-sm bg-white border border-2 ml-1" style="border-radius: 10px;margin-top: 64px;">
+<!-- Side bar bên phải -->
+<div class="col-9 p-2 shadow-sm bg-white border border-2 ml-1" style="border-radius: 10px; margin-top: 64px;">
     <main>
         <div class="container-fluid px-4">
+            <div class="row">
+                <!-- Phần nội dung chăm sóc bán hàng -->
+                <div class="col-md-8">
+                    <h2>Chăm Sóc Bán Hàng</h2>
+                    <p>
+                        Xin chào,
+                        <!-- Thêm a còng ở dấu 2 chấm..{
+                            var user = HttpContext.Current.Session["nameuser"].ToString();
+                            <span> ..user</span>
+                        }
+                           -->
+                        ! Chào mừng bạn đến với trang quản lý chăm sóc bán hàng.
+                        Dưới đây là một số chức năng bạn có thể thực hiện:
+                    </p>
+                    <ul>
+                        <a href="@Url.Action("Donhang","Banhang")">
+                        <li>Xem và quản lý đơn hàng của khách hàng.</li>
+                        </a>
+                        <a href="@Url.Action("Thongtinssanpham","Sanpham")">
+                        <li>Xem và cập nhật thông tin sản phẩm.</li>
+                        </a>
+                        <a href="@Url.Action("Khachhang","Chamsockhachhang")">
+                        <li>Liên lạc với khách hàng qua hệ thống hỗ trợ.</li>
+                        </a>
+                        <!-- Thêm các chức năng khác tùy thuộc vào yêu cầu của bạn -->
+                    </ul>
+                </div>
+                <!-- /Phần nội dung chăm sóc bán hàng -->
+                <!-- Phần sidebar bên phải -->
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Thông Tin Nhân Viên</h5>
+                            <p class="card-text">
+                                Tên Nhân Viên:
+                                <!-- Thêm a còng ở dấu 2 chấm..{
+                                    var user = HttpContext.Current.Session["nameuser"].ToString();
+                                    <span> ..user</span>
+                                }
+                                   -->
+                            </p>
+                            <p class="card-text">Chức Vụ: Nhân Viên Chăm Sóc Bán Hàng</p>
+                            <!-- Thêm thông tin khác nếu cần -->
+                        </div>
+                    </div>
+                </div>
+                <!-- /Phần sidebar bên phải -->
+            </div>
         </div>
-
     </main>
 </div>
-<!--Side bar bên phải-->
+<!-- /Side bar bên phải -->

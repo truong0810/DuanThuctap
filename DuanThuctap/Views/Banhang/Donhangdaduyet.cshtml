@@ -42,25 +42,25 @@
                                 <td>@item.DONHANG.SOLUONG</td>
                                 <td>@item.DONHANG.TONGTIEN</td>
                                 <td>@item.DONHANG.MOTA</td>
-                                <!--<td>
+                                <td>
                                     <button type="button" class="btn btn-danger">
-                                        <a href="Url.Action("Editorderapproved", new { id = item.MAHD })" class="text-decoration-none color-delete">
+                                        <a href="@Url.Action("Editorderapproved", new { id=item.MAHD })" class="text-decoration-none color-delete">
                                             <i class="fa-solid fa-pen-to-square text-warning"></i>
                                         </a>
                                     </button>
-                                </td>-->
+                                </td>
                             </tr>
-                        }
-                    </table>
-                    <!-- Thêm phân trang vào -->
-                    <div class="text-right fw-title text-primary">
-                        Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+                            }
+                        </table>
+                        <!-- Thêm phân trang vào -->
+                        <div class="text-right fw-title text-primary">
+                            Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+                        </div>
+                        @Html.PagedListPager(Model, page => Url.Action("Donhangdaduyet", new { page }))
+                        <!-- Kết thúc -->
                     </div>
-                    @Html.PagedListPager(Model, page => Url.Action("Donhangdaduyet", new { page }))
-                    <!-- Kết thúc -->
                 </div>
             </div>
-        </div>
-    </main>
-</div>
-<!--Side bar bên phải-->
+        </main>
+    </div>
+    <!--Side bar bên phải-->
